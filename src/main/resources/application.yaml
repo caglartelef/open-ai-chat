@@ -1,0 +1,52 @@
+spring:
+  application:
+    name: open-ai-chat
+  profiles:
+    active: localhost
+
+info:
+  component: Open AI Chat
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 60000
+        readTimeout: 10000
+
+open-ai:
+  model: "gpt-3.5-turbo-0301"
+  api-key: "Bearer YOUR_API_KEY"
+
+---
+spring:
+  config:
+    activate:
+      on-profile: localhost
+
+feign:
+  open-ai-chat-service:
+    name: open-ai-chat-service
+    base-url: https://api.openai.com
+
+---
+spring:
+  config:
+    activate:
+      on-profile: stage
+
+feign:
+  open-ai-chat-service:
+    name: open-ai-chat-service
+    base-url: https://api.openai.com
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+feign:
+  open-ai-chat-service:
+    name: open-ai-chat-service
+    base-url: https://api.openai.com
